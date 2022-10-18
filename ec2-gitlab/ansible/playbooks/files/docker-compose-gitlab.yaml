@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  web:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: 'gitlab.example.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab.example.com'
+        registry_external_url 'https://registry.example.com'
+    container_name: gitlab
+    ports:
+      - '443:443'
+      - '80:80'
+      - '30022:22'
+      - '5000:5000'
+      - '4567:4567'
+    volumes:
+      - '/home/ubuntu/gitlab/config:/etc/gitlab'
+      - '/home/ubuntu/gitlab/logs:/var/log/gitlab'
+      - '/home/ubuntu/gitlab/data:/var/opt/gitlab'
+    shm_size: '256m'

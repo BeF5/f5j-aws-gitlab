@@ -1,0 +1,63 @@
+---
+
+- name: Copy Docker Compsoe file from remote
+  ansible.builtin.copy:
+    src: ./docker-compose-gitlab.yaml 
+    dest: /home/ubuntu/
+
+- name: Create Directory for GitLab
+  file:
+    path: "gitlab"
+    state: directory
+    owner: "ubuntu"
+    group: "ubuntu"
+    mode: "775"
+
+- name: Create Directory for GitLab
+  file:
+    path: "gitlab/config"
+    state: directory
+    owner: "ubuntu"
+    group: "ubuntu"
+    mode: "775"
+
+- name: Create Directory for GitLab
+  file:
+    path: "gitlab/logs"
+    state: directory
+    owner: "ubuntu"
+    group: "ubuntu"
+    mode: "775"
+
+- name: Create Directory for GitLab
+  file:
+    path: "gitlab/data"
+    state: directory
+    owner: "ubuntu"
+    group: "ubuntu"
+    mode: "775"
+
+- name: Create Directory for GitLab
+  file:
+    path: "gitlab/config/ssl"
+    state: directory
+    owner: "ubuntu"
+    group: "ubuntu"
+    mode: "775"
+
+- name: Copy GitLab Key
+  ansible.builtin.copy:
+    src: ./registry.example.com.key
+    dest: /home/ubuntu/gitlab/config/ssl
+
+
+- name: Copy GitLab Cert
+  ansible.builtin.copy:
+    src: ./registry.example.com.crt
+    dest: /home/ubuntu/gitlab/config/ssl
+
+- name: Start GitLab
+  shell: |
+    sudo docker-compose -f /home/ubuntu/docker-compose-gitlab.yaml up -d 
+  args:
+    chdir: ~/
