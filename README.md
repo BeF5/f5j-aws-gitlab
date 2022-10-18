@@ -1,4 +1,4 @@
-# deploy-ec2-gitlab-withWAF
+# deploy-ec2-gitlab
 
 ## Objective
 ## How to use
